@@ -1,0 +1,80 @@
+###
+GET  http://localhost:4004/odata/v4/kharcha-service/Category
+
+###
+POST  http://localhost:4004/odata/v4/kharcha-service/Category
+Content-Type: application/json
+
+{
+    "name":"Food"
+}
+
+###
+PATCH  http://localhost:4004/odata/v4/kharcha-service/Category(name='Saving')
+Content-Type: application/json
+
+{   "name":"Save",
+    "status":"Pending"
+}
+
+###
+DELETE   http://localhost:4004/odata/v4/kharcha-service/Category(name='Saving')
+
+# -----------------------
+###
+GET  http://localhost:4004/odata/v4/kharcha-service/Month
+
+###
+POST  http://localhost:4004/odata/v4/kharcha-service/Month
+Content-Type: application/json
+
+{
+    "month_name":"Feb",
+    "year":"2024",
+    "previous_Balance":0,
+    "credit_Balance":1000 
+}
+
+###
+PATCH   http://localhost:4004/odata/v4/kharcha-service/Month(month_name='Jan',year='2024')
+Content-Type: application/json
+
+{
+  "to_Items":[
+    {
+        "name":"Stock",
+        "amount":200,
+        "to_Category_name":"Saving"
+    },
+      {
+        "name":"Pizza",
+        "amount":10,
+         "to_Category_name":"Food"
+    }
+  ]
+}
+
+###
+POST  http://localhost:4004/odata/v4/kharcha-service/Month
+Content-Type: application/json
+
+{
+    "month_name":"Jan",
+    "year":"2024",
+    "previous_Balance":10,
+    "credit_Balance":1000 ,
+     "to_Items":[
+    {
+        "name":"Stock2",
+        "amount":100,
+        "to_Category_name":"Saving"
+    } 
+  ]
+}
+
+###
+DELETE   http://localhost:4004/odata/v4/kharcha-service/Month(month_name='Jan',year='2024')
+
+###
+GET  http://localhost:4004/odata/v4/kharcha-service/Item
+
