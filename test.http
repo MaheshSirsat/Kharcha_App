@@ -65,7 +65,7 @@ Content-Type: application/json
     "credit_Balance":1000 ,
      "to_Items":[
     {
-        "name":"Stock2",
+        "name":"Stock",
         "amount":100,
         "to_Category_name":"Saving"
     } 
