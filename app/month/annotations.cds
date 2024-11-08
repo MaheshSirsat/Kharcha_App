@@ -1,0 +1,1 @@
+using kharcha_service as service from '../../srv/catelog';

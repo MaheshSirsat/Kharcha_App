@@ -1,0 +1,109 @@
+<mvc:View
+     controllerName="kharcha.month.controller.List"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m"
+     xmlns:core="sap.ui.core"
+>
+    <Page
+        id="page"
+       
+    >
+        <content>
+            <VBox fitContainer="true">
+                <smartFilterBar:SmartFilterBar
+                    id="smartFilterBar"
+                    entitySet="Month"
+                   useToolbar="false"
+                   showGoOnFB="false"
+                    enableBasicSearch="true"
+                >
+             
+                </smartFilterBar:SmartFilterBar>
+                <smartTable:SmartTable
+                    id="LineItemsSmartTable"
+                    entitySet="Month"
+                    smartFilterId="smartFilterBar"
+                    tableType="Table"
+                    useExportToExcel="true"
+                    beforeExport="onBeforeExport"
+                    useVariantManagement="false"
+                    useTablePersonalisation="false"
+                    header="Month"
+                    showRowCount="true"
+                    persistencyKey="SmartTableAnalytical_Explored"
+                    enableAutoBinding="true"
+                    class="sapUiResponsiveContentPadding"
+                    enableAutoColumnWidth="true"
+                    editTogglable="false"
+                    enableCopy="false"
+                    initiallyVisibleFields="year,previous_Balance,credit_Balance,total_Balance,createdBy,createdAt"
+              
+                > 
+
+                         <smartTable:customToolbar>
+                    <OverflowToolbar design="Transparent">
+                        <ToolbarSpacer />
+                        <Button
+                            ariaHasPopup="None"
+                            icon="sap-icon://add"
+                            iconDensityAware="true"
+                            iconFirst="true"
+                            text="Create"
+                            type="Default"
+                            press="onCreate"
+                        />
+                           <Button
+                            ariaHasPopup="None" 
+                            iconDensityAware="true"
+                            iconFirst="true"
+                            text="Update"
+                            visible="{appInfo>/rowSelected}"
+                            type="Default"
+                            press="onUpdate"
+                        />
+                          <Button
+                            ariaHasPopup="None"
+                            icon="sap-icon://delete"
+                            iconDensityAware="true"
+                            iconFirst="true"
+                            text="Delete"
+                              visible="{appInfo>/rowSelected}"
+                            type="Default"
+                            press="onDelete"
+                        />
+                    </OverflowToolbar>
+                </smartTable:customToolbar>
+
+                <Table
+                   
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    mode="SingleSelectMaster"
+                    id="idSimpleTable"
+                    selectionChange="onSelectionChange"
+                >
+                       <columns>
+                            <Column>
+                                <customData>
+                                    <core:CustomData
+                                        key="p13nData"
+                                        value='\{"columnKey": "month_name ", "leadingProperty": "month_name", "columnIndex": 0}'
+                                    />
+                                </customData>
+                                <Text text="month_name" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                               <Link text="{month_name}" press="onMonthNameLinkPress" ></Link>
+                            </ColumnListItem>
+                        </items>
+                </Table>
+
+                </smartTable:SmartTable>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

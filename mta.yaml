@@ -39,9 +39,23 @@ modules:
       - kharchacategory.zip
       name: kharchacategory
       target-path: resources/
+    - artifacts:
+      - kharchamonth.zip
+      name: kharchamonth
+      target-path: resources/
 - name: kharchacategory
   type: html5
   path: app/category
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: kharchamonth
+  type: html5
+  path: app/month
   build-parameters:
     build-result: dist
     builder: custom

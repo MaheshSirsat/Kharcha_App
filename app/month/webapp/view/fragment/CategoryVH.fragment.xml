@@ -1,0 +1,64 @@
+<core:FragmentDefinition xmlns="sap.m"     xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+    <Dialog
+        title="Add Month"
+        stretch="false"
+        id="categoryDialog" 
+        contentWidth="150px"
+        
+    >
+        <content>
+              <VBox width="auto" fitContainer="true">
+                <smartFilterBar:SmartFilterBar
+                    id="smartFilterBar"
+                    entitySet="Category"
+                   useToolbar="false"
+                   showGoOnFB="false"
+                    enableBasicSearch="true"
+                >
+             
+                </smartFilterBar:SmartFilterBar>
+                <smartTable:SmartTable
+                    id="LineItemsSmartTable"
+                    entitySet="Category"
+                    smartFilterId="smartFilterBar"
+                    tableType="Table"
+                    useExportToExcel="true"
+                    beforeExport="onBeforeExport"
+                    useVariantManagement="false"
+                    useTablePersonalisation="false"
+                    header="Month"
+                    showRowCount="true"
+                    persistencyKey="SmartTableAnalytical_Explored"
+                    enableAutoBinding="true"
+                    class="sapUiResponsiveContentPadding"
+                    enableAutoColumnWidth="true"
+                    editTogglable="false"
+                    enableCopy="false"
+                    initiallyVisibleFields="name"
+              
+                > 
+
+                        
+               
+
+                <Table
+                   
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    mode="SingleSelectMaster"
+                    id="idSimpleTable"
+                    selectionChange="onPressCategory"
+                >    </Table>
+
+                </smartTable:SmartTable>
+            </VBox>
+        </content>
+        <buttons>
+       
+            <Button
+                text="Cancel"
+                press=".onCancelDialog"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

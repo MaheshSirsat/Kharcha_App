@@ -1,0 +1,180 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.uxap"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:forms="sap.ui.layout.form"
+    height="100%"
+    controllerName="kharcha.month.controller.MonthView"
+>
+    <ObjectPageLayout
+        id="ObjectPageLayout"
+        upperCaseAnchorBar="false"
+        showFooter="{appInfo>/editMode}"
+    >
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
+                <expandedHeading>
+                    <m:Title text="{viewInfo>/month_name}" />
+                </expandedHeading>
+
+                <snappedHeading>
+                    <m:HBox>
+                        <m:VBox>
+                            <m:Title text="{viewInfo>/month_name}" />
+                            <m:Label text="{viewInfo>/year}" />
+                        </m:VBox>
+                    </m:HBox>
+                </snappedHeading>
+
+                <expandedContent>
+                    <m:Label text="{viewInfo>/year}" />
+                </expandedContent>
+
+                <snappedTitleOnMobile>
+                    <m:Title text="{viewInfo>/month_name}" />
+                </snappedTitleOnMobile>
+
+                <actions>
+                    <m:Button
+                        text="Edit"
+                        type="Emphasized"
+                        press="onEditButtonPress"
+                          visible="{=!${appInfo>/editMode}}"
+                    />
+                </actions>
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+
+        <headerContent>
+            <m:FlexBox
+                wrap="Wrap"
+                fitContainer="true"
+            >
+                <m:VBox class="sapUiLargeMarginEnd sapUiSmallMarginBottom">
+                    <m:HBox
+                        class="sapUiTinyMarginBottom"
+                        renderType="Bare"
+                    >
+                        <m:Label
+                            text="Previous Balance:"
+                            class="sapUiTinyMarginEnd"
+                        />
+                        <m:Text text="{viewInfo>/previous_Balance}" />
+                    </m:HBox>
+
+                    <m:HBox
+                        class="sapUiTinyMarginBottom"
+                        renderType="Bare"
+                    >
+                        <m:Label
+                            text="Total Balance:"
+                            class="sapUiTinyMarginEnd"
+                        />
+                        <m:Text text="{viewInfo>/total_Balance}" />
+                    </m:HBox>
+                </m:VBox>
+            </m:FlexBox>
+        </headerContent>
+
+        <sections>
+            <ObjectPageSection
+                titleUppercase="false"
+                title="Items"
+            >
+                <subSections>
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <m:Table
+                                mode="{= ${appInfo>/editMode} ? 'SingleSelectLeft' : 'None'}"
+                                items="{viewInfo>/to_Items/results/}"
+                                class="sapUxAPObjectPageSubSectionAlignContent"
+                                width="auto"
+								id="idmTable"
+                            >
+                                <m:headerToolbar>
+                                    <m:OverflowToolbar>
+                                        <m:Title
+                                            text="Items"
+                                            level="H2"
+                                        />
+                                        <m:ToolbarSpacer />
+                                        <m:Button
+                                            icon="sap-icon://add"
+                                            text="Create"
+                                            press="onAddTable"   
+                                            visible="{appInfo>/editMode}"                             />
+
+                                        <m:Button
+                                            icon="sap-icon://delete"
+                                            text="Delete"
+                                            press="onDeleteTable" 
+                                             visible="{appInfo>/editMode}"      
+                                        />
+
+                                         
+                                    </m:OverflowToolbar>
+                                </m:headerToolbar>
+
+                                 <m:columns>
+                                    <m:Column>
+                                        <m:Text text="Name" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Remark" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Category" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="Amount" />
+                                    </m:Column>
+                                </m:columns>
+
+                                 <m:items>
+                                    <m:ColumnListItem>
+                                        <m:Input
+                                             editable="{appInfo>/editMode}"
+                                            value="{viewInfo>name}"
+                                        />
+                                        <m:Input
+                                             editable="{appInfo>/editMode}"
+                                            value="{viewInfo>remarks}"
+                                        />
+                                        <m:Input
+                                         editable="{appInfo>/editMode}"
+                                            value="{viewInfo>to_Category_name}"
+											showValueHelp="true"
+											valueHelpOnly="true" 
+											valueHelpRequest="showCategoryVH"
+											
+                                        />
+                                        <m:Input
+                                         editable="{appInfo>/editMode}"
+                                            type="Number"
+                                            value="{viewInfo>amount}"
+                                        />
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections> 
+            </ObjectPageSection>
+        </sections>
+         <footer>
+            <m:OverflowToolbar id="footerToolbar">
+                <m:ToolbarSpacer />
+                <m:Button
+                    text="Save"
+                    press="onSave"
+                    type="Emphasized"
+                />
+                <m:Button
+                    text="Cancel"
+                    press="onCancel"
+                />
+            </m:OverflowToolbar>
+        </footer>
+    </ObjectPageLayout>
+</mvc:View>

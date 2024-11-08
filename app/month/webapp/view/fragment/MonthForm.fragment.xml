@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+    <Dialog
+        title="Add Month"
+        stretch="false"
+        id="categoryDialog"
+        class="sapUiResponsiveContentPadding" 
+    >
+        <content>
+            <form:SimpleForm
+                layout="ResponsiveGridLayout"
+                editable="true"
+                id="categorySimpleForm"
+            >
+                <Label text="Month" />
+                <Input  value="{monthModel>/month_name}"   />
+                <Label text="Year" />
+                <Input type="Number" value="{monthModel>/year}"   />
+                <Label text="Previous Balance" />
+                <Input  type="Number"  value="{monthModel>/previous_Balance}"  />
+                <Label text="credit_Balance" />
+                <Input  type="Number"  value="{monthModel>/credit_Balance}"  />
+            </form:SimpleForm>
+        </content>
+        <buttons>
+            <Button
+                text="Save"
+                type="Emphasized"
+                press=".onSaveCategory"
+            />
+            <Button
+                text="Cancel"
+                press=".onCancelDialog"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>
