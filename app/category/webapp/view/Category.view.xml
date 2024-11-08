@@ -1,0 +1,105 @@
+<mvc:View
+    controllerName="kharcha.category.controller.Category"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m"
+     xmlns:core="sap.ui.core"
+>
+    <Page
+        id="page"
+       
+    >
+        <content>
+            <VBox fitContainer="true">
+                <smartFilterBar:SmartFilterBar
+                    id="smartFilterBar"
+                    entitySet="Category"
+                   useToolbar="false"
+                   showGoOnFB="false"
+                    enableBasicSearch="true"
+                >
+             
+                </smartFilterBar:SmartFilterBar>
+                <smartTable:SmartTable
+                    id="LineItemsSmartTable"
+                    entitySet="Category"
+                    smartFilterId="smartFilterBar"
+                    tableType="Table"
+                    useExportToExcel="true"
+                    beforeExport="onBeforeExport"
+                    useVariantManagement="false"
+                    useTablePersonalisation="false"
+                    header="Category"
+                    showRowCount="true"
+                    persistencyKey="SmartTableAnalytical_Explored"
+                    enableAutoBinding="true"
+                    class="sapUiResponsiveContentPadding"
+                    enableAutoColumnWidth="true"
+                    editTogglable="false"
+                    enableCopy="false"
+                    initiallyVisibleFields="name,createdBy,createdAt"
+              
+                > 
+
+                 <smartTable:customToolbar>
+                    <OverflowToolbar design="Transparent">
+                        <ToolbarSpacer />
+                        <Button
+                            ariaHasPopup="None"
+                            icon="sap-icon://add"
+                            iconDensityAware="true"
+                            iconFirst="true"
+                            text="Create"
+                            type="Default"
+                            press="onCreate"
+                        />
+                          <Button
+                            ariaHasPopup="None"
+                            icon="sap-icon://"
+                            iconDensityAware="true"
+                            iconFirst="true"
+                            text="Delete"
+                            type="Default"
+                            press="onDelete"
+                        />
+                    </OverflowToolbar>
+                </smartTable:customToolbar>
+
+                <Table
+                   
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    mode="SingleSelectMaster"
+                    id="idSimpleTable"
+                    selectionChange="onSelectionChange"
+                >
+                    <columns>
+                        <Column  >
+                            <customData>
+                                <core:CustomData
+                                    key="p13nData"
+                                    value='\{"columnKey": "status ", "leadingProperty": "status", "columnIndex": 1}'
+                                />
+                            </customData>
+                            <Text text="status" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                             <ObjectStatus
+                                    class="sapUiSmallMarginBottom"
+                                    text="{status}"
+                                    inverted="true"
+                                    icon="sap-icon://sys-enter-2"
+                                    state="Success"
+                                />
+                        </ColumnListItem>
+                    </items>
+                </Table>
+
+                </smartTable:SmartTable>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
