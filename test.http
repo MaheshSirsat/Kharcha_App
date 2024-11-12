@@ -76,5 +76,5 @@ Content-Type: application/json
 DELETE   http://localhost:4004/odata/v4/kharcha-service/Month(month_name='Jan',year='2024')
 
 ###
-GET  http://localhost:4004/odata/v4/kharcha-service/Item
+GET  http://localhost:4004/odata/v4/kharcha-service/generatePDF(month_name='Feb',year='2024')
 
