@@ -6,11 +6,12 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@sap-cloud-sdk/connectivity": "^3.22.2",
     "@sap/cds": "^8",
     "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+    "@sap/xssec": "^4",
     "express": "^4",
-    "underscorec": "^0.0.2",
-    "@sap/xssec": "^4"
+    "underscorec": "^0.0.2"
   },
   "devDependencies": {
     "@cap-js/cds-types": "^0.6",

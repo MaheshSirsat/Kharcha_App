@@ -36,6 +36,12 @@
                 </snappedTitleOnMobile>
 
                 <actions>
+                    
+                    <m:Button  
+                        press="onDownloadPDF"
+                        icon="sap-icon://download"
+                          visible="{=!${appInfo>/editMode}}"
+                    />
                     <m:Button
                         text="Edit"
                         type="Emphasized"

@@ -1,0 +1,14 @@
+#
+#Wed Nov 13 14:02:53 UTC 2024
+Description=Kharcha PDF Generator
+sap-platform=ABAP
+WebIDEEnabled=true
+sap-client=400
+URL=https\://kharcha-pdf-fearless-baboon-jf.cfapps.us10-001.hana.ondemand.com/
+Name=Kharcha_PDF
+WebIDEUsage=odata_gen
+Type=HTTP
+HTML5.DynamicDestination=true
+Authentication=NoAuthentication
+ProxyType=Internet
+WebIDESystem=true

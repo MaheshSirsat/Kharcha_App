@@ -2,9 +2,9 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/Fragment",
     "sap/m/MessageToast",
-
+    "sap/ui/core/BusyIndicator",
 ],
-    function (Controller, Fragment, MessageToast) {
+    function (Controller, 	Fragment, MessageToast, BusyIndicator) {
         "use strict";
 
         return Controller.extend("kharcha.month.controller.MonthView", {
@@ -128,5 +128,40 @@ sap.ui.define([
                 const viewInfoData = this.getView().getModel('viewInfo').getData();
                 this.loadData(viewInfoData.month_name, viewInfoData.year)
             },
+            onDownloadPDF(){
+                BusyIndicator.show()
+                const oViewInfoModel=this.getView().getModel('viewInfo').getData(); 
+                const oModel = this.getOwnerComponent().getModel();
+                oModel.read("/generatePDF", {
+                    urlParameters: {
+                        month_name: oViewInfoModel.month_name,
+                        year: oViewInfoModel.year, 
+                    },
+                    success: function (oData) { 
+                        const deccont = atob(oData.generatePDF);
+                        const byteNumbers = new Array(deccont.length);
+                  
+                        for (let i = 0; i < deccont.length; i++) {
+                          byteNumbers[i] = deccont.charCodeAt(i);
+                        }
+                  
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], { type: "application/pdf" });
+                        var pdfDocumentURL = URL.createObjectURL(blob);
+                        var link = document.createElement('a');
+                        link.href = pdfDocumentURL;
+                        link.setAttribute('download' ,`${oViewInfoModel.month_name}_${oViewInfoModel.year}.pdf`);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        BusyIndicator.hide()
+            
+            
+                    },
+                    error: function (error) {
+                      BusyIndicator.hide()
+                    },
+                  });
+            }
         });
     });

@@ -1,7 +1,7 @@
-const { month, year } = require('@cap-js/hana/lib/cql-functions');
 const cds = require('@sap/cds');
 const _ = require('underscore');
-
+const axios = require('axios');
+const { getDestination } = require('@sap-cloud-sdk/connectivity');
 let _loadPDFData = async function (req, srv) {
   try {
     const tx = cds.transaction(req);
@@ -45,10 +45,21 @@ let _loadPDFData = async function (req, srv) {
 let generatePDF = async function (req, srv) {
     try {
         const pdfData=await _loadPDFData(req,srv);
-        return {
-            message:'PDF data using generatePDF',
-            pdfData:pdfData
-        }
+        const destinationName = 'Kharcha_PDF';
+        const destination = await getDestination({ destinationName });
+        const destinationUrl = destination.url;
+    
+        const pdfGenerationUrl = `${destinationUrl}/generatePDF`;
+    
+        const response = await axios.post(pdfGenerationUrl, pdfData, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+    
+        const base64PDF = response.data.PDF_base64;
+        return base64PDF;
+        
     } catch (error) {
       req.error(error)
     }
