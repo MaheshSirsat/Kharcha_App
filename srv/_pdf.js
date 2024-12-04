@@ -31,7 +31,7 @@ let _loadPDFData = async function (req, srv) {
         );
         monthData=await _cleanValue(monthData)
         const grandTotal = _.reduce(categoryData, (sum, item) => sum + item.total_amount, 0);
-        const current_Balance=monthData.total_Balance-grandTotal
+        const current_Balance=monthData[0].total_Balance-grandTotal
 
 
     return {
