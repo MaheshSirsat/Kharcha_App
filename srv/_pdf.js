@@ -7,7 +7,7 @@ let _loadPDFData = async function (req, srv) {
     const tx = cds.transaction(req);
     const { Month,Category } = srv.entities;
     const oParam = req.data
-    const monthData = await tx.run(
+    let monthData = await tx.run(
         SELECT.from(Month).columns(
             ((cMonth) => {
                 cMonth('*'),
@@ -20,6 +20,8 @@ let _loadPDFData = async function (req, srv) {
             year: oParam.year
         }));
 
+
+
         const categoryData = _.map(
             _.groupBy(monthData[0].to_Items, 'to_Category_name'),
             (items, category) => ({
@@ -27,12 +29,15 @@ let _loadPDFData = async function (req, srv) {
                 total_amount: _.reduce(items, (sum, item) => sum + item.amount, 0)
             })
         );
+        monthData=await _cleanValue(monthData)
         const grandTotal = _.reduce(categoryData, (sum, item) => sum + item.total_amount, 0);
+        const current_Balance=monthData.total_Balance-grandTotal
 
 
     return {
         monthData: monthData,
         categoryData: categoryData,
+        current_Balance:current_Balance,
         grandTotal: grandTotal
     }
   } catch (error) {
@@ -42,6 +47,16 @@ let _loadPDFData = async function (req, srv) {
 
 }
 
+let _cleanValue = async function (monthData) {
+  monthData[0].to_Items.forEach((item) => {
+    ['name', 'remarks', 'amount', 'category'].forEach((field) => {
+      if (item[field] === null || item[field] === undefined || item[field] === '') {
+        item[field] = " ";
+      }
+    });
+  });
+  return monthData; 
+};
 let generatePDF = async function (req, srv) {
     try {
         const pdfData=await _loadPDFData(req,srv);
